@@ -26,7 +26,9 @@ Route::post('/main/checklogin', 'MainController@checklogin');
 Route::get('main/succeslogin', 'MainController@succeslogin');
 Route::get('main/logout', 'MainController@logout');
 
-Route::get('admin', function () {
-    return view('administration/index');
-});
+
+
+Route::get('admin', 'ConfigController@index');
+Route::post('config/setdelay', 'ConfigController@setdelay');
+
 

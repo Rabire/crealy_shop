@@ -28,7 +28,7 @@ class MainController extends Controller
 
         if(Auth::attempt($user_data))
         {
-            return redirect('main/succeslogin');
+            return redirect('admin');
         } else {
             return back()->with('error', 'Identifiant ou mot de passe incorrect');
         }
