@@ -1,0 +1,23 @@
+.btn-100 {
+    width: 100%;
+}
+
+.txt-center {
+    vertical-align: sub;
+    text-align: center;
+}
+
+.bg {
+    background-color: #81ADAF;
+}
+
+.header-row {
+    margin-bottom: 1%;
+    font-weight: bold;
+    text-align: center;
+}
+
+.cels {
+    padding: 1%;
+    border: solid 1px;
+}

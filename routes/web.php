@@ -31,4 +31,3 @@ Route::get('main/logout', 'MainController@logout');
 Route::get('admin', 'ConfigController@index');
 Route::post('config/setdelay', 'ConfigController@setdelay');
 
-
