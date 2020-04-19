@@ -59,16 +59,16 @@
         @foreach ($articles as $article)
         <div class="row header-row">
             <div class="col-1 bg-light text-dark cels">
-                {{ $article['id'] }}
+                <span class="txt-center">{{ $article['id'] }}</span>
             </div>
             <div class="col bg-light text-dark cels">
-                {{ $article['name'] }}
+                <span class="txt-center">{{ $article['name'] }}</span>
             </div>
             <div class="col-3 bg-light text-dark cels">
-                {{ $article['price'] }}
+                <span class="txt-center">{{ $article['price'] }} €</span>
             </div>
             <div class="col-3 bg-light text-dark cels">
-                <button type="button" class="btn btn-success btn-100">Modifier cette ligne</button>
+                <a href="edit?id={{ $article['id'] }}"><button type="button" class="btn btn-outline-success btn-100">Modifier</button></a>
             </div>
         </div>
         @endforeach

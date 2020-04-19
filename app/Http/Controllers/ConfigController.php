@@ -39,4 +39,5 @@ class ConfigController extends Controller
             'articles' => $this->db_article_list()
         ]);
     }
+
 }
