@@ -5,6 +5,12 @@
 
     @if(isset(Auth::user()->email))
 
+        @if (\Session::has('success'))
+            <div class="alert alert-success" role="alert">
+                {{ Session::get('success') }}
+            </div>
+        @endif
+
         <hr>
         
         <form action="config/setdelay" method="post">

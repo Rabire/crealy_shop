@@ -3,6 +3,12 @@
 @section('content')
 @inject('EditControllerProvider', 'App\Http\Controllers\EditController')
 
+@if (\Session::has('success'))
+    <div class="alert alert-success" role="alert">
+        {{ Session::get('success') }}
+      </div>
+@endif
+
 <form action="edit/article?id={{ $article['id'] }}" method="post">
     {{ csrf_field() }}
     <div class="row">

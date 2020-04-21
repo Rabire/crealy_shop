@@ -28,7 +28,7 @@ class ConfigController extends Controller
 
         $db_info->delay = $delay;
         $db_info->save();
-        return back();
+        return back()->with('success', 'Mise à jour réussie');
         
     }
 

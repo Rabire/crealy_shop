@@ -101,7 +101,7 @@ class EditController extends Controller
 
         $db_article_info->save();
         
-        return back();
+        return back()->with('success', 'Mise à jour réussie');
 
     }
 
