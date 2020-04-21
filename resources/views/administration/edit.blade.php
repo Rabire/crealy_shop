@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('administration\adminlayout')
 
 @section('content')
 @inject('EditControllerProvider', 'App\Http\Controllers\EditController')
