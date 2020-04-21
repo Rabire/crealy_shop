@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+@inject('EditControllerProvider', 'App\Http\Controllers\EditController')
 
 <form action="edit/article?id={{ $article['id'] }}" method="post">
     {{ csrf_field() }}
@@ -11,6 +12,20 @@
         <div class="col cels">
 
             <input class="form-control" type="text" name="name" value="{{ $article['name'] }}" >
+        </div>
+
+        <div class="col cels txt-center">
+            Etat
+        </div>
+        <div class="col cels">
+            <select name="status" class="custom-select my-1 mr-sm-2">
+                <option selected value="{{ $article['status'] }}">
+                    {{ $EditControllerProvider::actualStatusName($article['status']) }}
+                </option>
+                <option value="{{ $EditControllerProvider::otherStatus($article['status']) }}">
+                        {{ $EditControllerProvider::otherStatusName($article['status']) }}
+                </option>
+            </select>
         </div>
     </div>
 
@@ -37,13 +52,13 @@
             Prix
         </div>
         <div class="col cels">
-            <input class="form-control" type="number" min="1" step="any" name="price" value="{{ $article['price'] }}" placeholder="Nombre décimal"/>
+            <input class="form-control" type="number" min="1" step="any" name="price" min="-999999" max="999999" value="{{ $article['price'] }}"placeholder="Nombre décimal"/>
         </div>
         <div class="col cels txt-center">
             Temps de confection
         </div>
         <div class="col cels">
-            <input class="form-control"  type="number" name="manufacture_time" value="{{ $article['manufacture_time'] }}" placeholder="Nombre entier" >
+            <input class="form-control"  type="number" name="manufacture_time" min="-999999" max="999999"  value="{{ $article['manufacture_time'] }}" placeholder="Nombre entier" >
         </div>
     </div>
 

@@ -23,24 +23,31 @@
 
         </form>
 
-        <hr>
+        <hr><br>
+        
+        <form action="adminlistefilter" method="post">
+            {{ csrf_field() }}
+            <div class="row">
+                <div class="col-9 txt-center">
+                    <h1 class="txt-center">Liste de produits du Shop</h1>
+                </div>
 
-        <br><br>
-
-        <div class="row">
-            <div class="col-9" style="padding: 1%;">
-                <h1 class="txt-center">Liste de produits du Shop</h1><br>
-            </div>
-
-            <div class="col-2" style="padding: 1%;">
-                    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                        <option selected value="1">Actifs</option>
-                        <option value="2">Inactifs</option>
-                        <option value="3">Tous</option>
+                <div class="col" style="padding: 1%;">
+                    <select name="filter" class="custom-select my-1 mr-sm-2">
+                        <option selected value="3">Tous</option>
+                        <option value="0">Inactifs</option>
+                        <option value="1">Actifs</option>
                     </select>
                 </div>
+                
+                <div class="col">
+                    <button type="submit" class="btn btn-success btn-100">!</button>
+                </div>
             </div>
-            
+
+        </form>
+        <br>
+
 
         <div class="row header-row">
             <div class="col-1 bg-dark text-white cels">
@@ -76,7 +83,7 @@
 
         
         <br><br><hr>
-        <a  style="color: red;" href="{{ url('/main/logout') }}">Se déconnecter</a>
+        <a style="color: red;" href="{{ url('/main/logout') }}">Se déconnecter</a>
 
     @else
         <script>window.location = "/login";</script>

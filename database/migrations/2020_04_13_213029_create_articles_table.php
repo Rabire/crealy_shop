@@ -20,6 +20,7 @@ class CreateArticlesTable extends Migration
             $table->text('description');
             $table->decimal('price', 8, 2);
             $table->integer('manufacture_time');
+            $table->integer('status');
             $table->timestamps();
         });
     }

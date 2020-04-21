@@ -31,4 +31,5 @@ Route::post('edit/article', 'EditController@update');
 
 Route::get('admin', 'ConfigController@index');
 Route::post('config/setdelay', 'ConfigController@setdelay');
+Route::post('adminlistefilter', 'ConfigController@filter');
 

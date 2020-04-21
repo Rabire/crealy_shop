@@ -40,4 +40,33 @@ class ConfigController extends Controller
         ]);
     }
 
+
+    function filter(Request $request) {
+
+        $filter = $request->get('filter');
+
+        //dump($filter);
+
+        if ($filter == 1) {
+            $produits_actifs = article::where('status', '=', '1')->get()->toarray();
+            //dump($produits_actifs);
+            return view('administration/index', [
+                'general_infos' => $this->db_general_infos(),
+                'articles' => $produits_actifs
+            ]);
+        } else if ($filter == 0) {
+            $produits_inactifs = article::where('status', '=', '0')->get()->toarray();
+            //dump($produits_inactifs);
+            return view('administration/index', [
+                'general_infos' => $this->db_general_infos(),
+                'articles' => $produits_inactifs
+            ]);
+
+        } else {
+            return $this->index();
+        }
+
+    }
+
+
 }

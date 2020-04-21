@@ -11,7 +11,7 @@ use DateTime;
 class ShopController extends Controller
 {
     private function db_article_list() {
-        $produits = article::all()->toArray();
+        $produits = article::where('status', '1')->get()->toArray();
         return $produits;
     }
 

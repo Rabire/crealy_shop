@@ -26,12 +26,39 @@ class EditController extends Controller
         $produits = article::all()->where('id', $productID)->toArray();
 
         foreach ($produits as $produit) {
-            dump($produit);
+            //dump($produit);
             return $produit;
         }
 
-
     }
+
+    static function actualStatusName($status) {
+
+        if($status == 1) {
+            return 'Actif';
+        } else {
+            return 'Inactif';
+        }
+    }
+
+    static function otherStatus($status) {
+
+        if($status == 1) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    static function otherStatusName($status) {
+
+        if($status == 1) {
+            return 'Inactif';
+        } else {
+            return 'Actif';
+        }
+    }
+
 
     function index() {
         return view('administration/edit', [
@@ -46,7 +73,7 @@ class EditController extends Controller
         $db_article_info = article::find($ProductInfos['id']);
 
         $post = $_POST;
-        dump($post);
+        //dump($post);
 
         if ($ProductInfos['name'] !== $post['name']) {
             $db_article_info->name = $post['name'];
@@ -68,10 +95,17 @@ class EditController extends Controller
             $db_article_info->manufacture_time = $post['manufacture_time'];
         }
 
+        if ($ProductInfos['status'] !== $post['status']) {
+            $db_article_info->status = $post['status'];
+        }
+
         $db_article_info->save();
         
         return back();
 
     }
+
+
+    
 
 }
