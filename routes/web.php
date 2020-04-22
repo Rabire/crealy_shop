@@ -7,13 +7,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('welcome', function () {
-    return view('welcome');
-});
 
-Route::get('about', function () {
-    return view('about');
-});
+
+Route::get('contact', 'ContactController@index');
+Route::get('contact-custom_creation', 'ContactController@index');
+Route::get('contact-existing_creation', 'ContactController@ShowExistingCreation');
+Route::get('contact-informations', 'ContactController@ShowInformations');
 
 Route::get('shop', 'ShopController@index');
 
