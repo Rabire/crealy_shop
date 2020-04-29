@@ -16,6 +16,7 @@ Route::get('contact-informations', 'ContactController@ShowInformations');
 
 Route::post('contact-custom_creation-submit', 'ContactController@customCreationSubmit');
 Route::post('contact-existing_creation-submit', 'ContactController@customExistingSubmit');
+Route::post('contact-informations-submit', 'ContactController@informationsSubmit');
 
 
 
@@ -39,4 +40,5 @@ Route::post('submit_article', 'AddController@SubmitArticle');
 Route::get('admin', 'ConfigController@index');
 Route::post('config/setdelay', 'ConfigController@setdelay');
 Route::post('adminlistefilter', 'ConfigController@filter');
+
 

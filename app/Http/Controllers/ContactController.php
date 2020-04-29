@@ -18,7 +18,7 @@ class ContactController extends Controller
             'description' => 'required'
         ]);
         
-        dump($_POST);
+        //dump($_POST);
 
         $message = new Message();
         $message->fullname = $_POST['fullname'];
@@ -77,7 +77,7 @@ class ContactController extends Controller
             'article' => 'required'
         ]);
         
-        dump($_POST);
+        //dump($_POST);
 
         $message = new Message();
         $message->fullname = $_POST['fullname'];
@@ -85,7 +85,7 @@ class ContactController extends Controller
         $message->title = $_POST['title'];
         $message->description = $_POST['description'];
         $message->type = "existing_creation";
-        //$message->articleid = $_POST['article'];
+        $message->article_id = $_POST['article'];
 
         
         if (isset($_FILES['uploaded_file']['name'])) {
@@ -123,7 +123,29 @@ class ContactController extends Controller
         
     
         $message->save();
-        //return back()->with('success', 'Votre message à été envoyé !');
+        return back()->with('success', 'Votre message à été envoyé !');
+
+    }
+
+
+    function informationsSubmit() {
+        
+        request()->validate([
+            'fullname' => 'required',
+            'phonenumber' => 'required',
+            'description' => 'required'
+        ]);
+        
+        //dump($_POST);
+
+        $message = new Message();
+        $message->fullname = $_POST['fullname'];
+        $message->phonenumber = $_POST['phonenumber'];
+        $message->description = $_POST['description'];
+        $message->type = "informations";
+    
+        $message->save();
+        return back()->with('success', 'Votre message à été envoyé !');
 
     }
 

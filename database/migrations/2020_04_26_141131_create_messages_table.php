@@ -20,9 +20,11 @@ class CreateMessagesTable extends Migration
             $table->text('fullname');
             $table->text('phonenumber');
             $table->text('title')->nullable();
+            $table->foreignId('article_id')->nullable()->constrained('articles');
             $table->text('description');
             $table->text('filepath')->nullable();
         });
+
     }
 
     /**

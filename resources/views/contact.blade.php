@@ -119,17 +119,22 @@
 <!-- informations -->
   <div class="container">
     <br>
-    <form method="post" action="contact-submit">
+    <form method="post" action="contact-informations-submit">
+      {{ csrf_field() }}
+
       <div class="form-group form-inline justify-content-center">
         <label>Vous êtes :</label>
-        <input type="text" name="fullname" class="form-control" placeholder="Nom complet">
+        <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror" placeholder="Nom complet">
         <label>Joignable au :</label>
-        <input type="text" name="phonenumber" class="form-control" placeholder="Numéro de téléphone">
+        <input type="text" name="phonenumber" class="form-control @error('phonenumber') is-invalid @enderror" placeholder="Numéro de téléphone">
       </div>
+
       <div class="form-group">
         <label>Je vous écoute</label>
-        <textarea class="form-control" name="description" placeholder="Demandez-moi ce que vous voullez !" rows="5"></textarea>
+        <textarea class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Demandez-moi ce que vous voullez !" rows="5"></textarea>
+        @error('description') <span class="invalid-feedback">Merci de détailler votre demande</span> @enderror
       </div>
+
       <button type="submit" class="btn btn-primary">Envoyer</button>
     </form>
   </div>
