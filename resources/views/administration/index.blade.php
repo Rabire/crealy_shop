@@ -52,6 +52,10 @@
     </form>
     <br>
 
+    <div class="col">
+        <a href="add_article" class="btn btn-primary">Ajouter une création</a>
+    </div>
+    <br>
 
     <div class="row header-row">
         <div class="col-1 bg-dark text-white cels">

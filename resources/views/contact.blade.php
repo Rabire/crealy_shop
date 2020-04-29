@@ -2,6 +2,14 @@
 
 @section('content')
 
+
+@if (\Session::has('success'))
+    <br>
+    <div class="alert alert-success" role="alert">
+        {{ Session::get('success') }}
+      </div>
+@endif
+
 <ul class="nav nav-tabs">
     <li class="nav-item">
         <a class="nav-link @if($tab == 'custom_creation') active @endif" href="contact-custom_creation">Création sur mesure</a>
@@ -18,27 +26,39 @@
 <!-- custom_creation -->
   <div class="container">
     <br>
-    <form method="post" action="contact-submit">
+    <form method="post" action="contact-custom_creation-submit" enctype="multipart/form-data">
+      {{ csrf_field() }}
+
       <div class="form-group form-inline justify-content-center">
         <label>Vous êtes :</label>
-        <input type="text" name="fullname" class="form-control" placeholder="Nom complet">
+        <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror" placeholder="Nom complet">
         <label>Joignable au :</label>
-        <input type="text" name="phonenumber" class="form-control" placeholder="Numéro de téléphone">
+        <input type="text" name="phonenumber" class="form-control @error('phonenumber') is-invalid @enderror" placeholder="Numéro de téléphone">
       </div>
+
       <div class="form-group">
         <label>Titre de la commande</label>
-        <input type="text" name="title" class="form-control" placeholder="Nom du produit">
+        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="" placeholder="Nom du produit">
+        @error('title') <span class="invalid-feedback">Veuillez indiquer le titre de la commande</span> @enderror
       </div>
+
       <div class="form-group">
         <label>Description</label>
-        <textarea class="form-control" name="description" placeholder="déscription déraillée du produit" rows="3"></textarea>
+        <textarea class="form-control @error('description') is-invalid @enderror" name="description" placeholder="déscription déraillée du produit" rows="3"></textarea>
+        @error('description') <span class="invalid-feedback"> Veuillez décrir le produit voullu </span> @enderror
       </div>
-      <div class="input-group mb-3">
-        <div class="custom-file">
-          <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-          <label class="custom-file-label" for="inputGroupFile01">Ajouter une photo</label>
+
+      <div class="input-group">
+        <input type="file" name="uploaded_file" />
+      </div>
+
+      @if (\Session::has('file_error'))
+        <div class="alert alert-danger" role="alert">
+          {{ Session::get('file_error') }}
         </div>
-      </div>
+      @endif
+
+      <br>
       <button type="submit" class="btn btn-primary">Envoyer</button>
     </form>
   </div>
@@ -47,36 +67,50 @@
 <!-- existing_creation -->
   <div class="container">
     <br>
-    <form method="post" action="contact-submit">
+    <form method="post" action="contact-existing_creation-submit">
+      {{ csrf_field() }}
+
       <div class="form-group form-inline justify-content-center">
         <label>Vous êtes :</label>
-        <input type="text" name="fullname" class="form-control" placeholder="Nom complet">
+        <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror" placeholder="Nom complet">
         <label>Joignable au :</label>
-        <input type="text" name="phonenumber" class="form-control" placeholder="Numéro de téléphone">
+        <input type="text" name="phonenumber" class="form-control @error('phonenumber') is-invalid @enderror" placeholder="Numéro de téléphone">
       </div>
+
       <div class="form-group">
         <label>Titre de la commande</label>
-        <input type="text" name="title" class="form-control" placeholder="Nom du produit">
+        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Nom du produit">
+        @error('title') <span class="invalid-feedback"> Veuillez indiquer le titre de la commande </span> @enderror
       </div>
+
       <div class="form-group">
         <label>Article existant</label>
-        <select id="inputState" class="form-control">
-          <option value="0" selected>Choisir...</option>
+        <select name="article" class="form-control @error('article') is-invalid @enderror">
+          <option value="" selected>Choisir...</option>
           @foreach ($produits as $produit)
             <option value="{{ $produit['id'] }}">{{ $produit['name'] }}</option>
           @endforeach
         </select>
+        @error('article') <span class="invalid-feedback"> Veuillez choisir un article existant </span> @enderror
       </div>
+
       <div class="form-group">
         <label>Description</label>
-        <textarea class="form-control" name="description" placeholder="déscription déraillée du produit" rows="3"></textarea>
+        <textarea name="description" class="form-control @error('description') is-invalid @enderror" placeholder="déscription déraillée du produit" rows="3"></textarea>
+        @error('description') <span class="invalid-feedback"> Veuillez décrir le produit voullu </span> @enderror
       </div>
-      <div class="input-group mb-3">
-        <div class="custom-file">
-          <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-          <label class="custom-file-label" for="inputGroupFile01">Ajouter une photo</label>
+
+      <div class="input-group">
+        <input type="file" name="uploaded_file" />
+      </div>
+
+      @if (\Session::has('file_error'))
+        <div class="alert alert-danger" role="alert">
+          {{ Session::get('file_error') }}
         </div>
-      </div>
+      @endif
+
+      <br>
       <button type="submit" class="btn btn-primary">Envoyer</button>
     </form>
   </div>
