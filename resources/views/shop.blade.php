@@ -16,8 +16,8 @@
                 <p class="text-justify">{{ $article['description'] }}</p>
                 <h3 class="text-right align-text-bottom">{{ $article['price'] }} €</h3>
                 <br>
-                <button type="button" class="btn btn-success">Commander tout de suite !</button><br>
-                <i>Disponible à partir du {{ $ShopControllerProvider::availiableDate($article['id']) }}</i>
+                <button type="button" class="btn btn-success">Commander le même !</button><br>
+                <i>Recevez-le le {{ $ShopControllerProvider::availiableDate($article['id']) }}</i>
                 <br>
                 <br>
             </div>

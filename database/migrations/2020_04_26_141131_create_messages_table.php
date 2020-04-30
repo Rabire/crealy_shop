@@ -22,6 +22,7 @@ class CreateMessagesTable extends Migration
             $table->text('title')->nullable();
             $table->foreignId('article_id')->nullable()->constrained('articles');
             $table->text('description');
+            $table->integer('status');
             $table->text('filepath')->nullable();
         });
 

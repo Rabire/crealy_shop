@@ -1,0 +1,112 @@
+@extends('administration\adminlayout')
+@inject('MessageController', 'App\Http\Controllers\MessageController')
+
+@section('content')
+
+    <style>
+        .accordion {
+          background-color: #eee;
+          color: #444;
+          cursor: pointer;
+          padding: 18px;
+          width: 100%;
+          border: none;
+          text-align: left;
+          outline: none;
+          font-size: 15px;
+          transition: 0.4s;
+        }
+
+        .active, .accordion:hover {
+          background-color: #ccc;
+        }
+        
+        .panel {
+          padding: 0 18px;
+          background-color: white;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.2s ease-out;
+        }
+
+        .flex-btwn {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        p {
+            margin-left: 10px;
+        }
+
+        .w-33 {
+            width: 33.33%;
+        }
+
+        .left {
+            text-align: right;
+        }
+
+    </style>
+
+    @if (\Session::has('success'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('success') }}
+        </div>
+    @endif
+
+    @foreach ($active_messages as $active_message)
+        
+            <button class="accordion flex-btwn">
+                <div class="w-33" >
+                    Le : <span style="color: blue;">{{ $MessageController::Created_at_dateFormat($active_message['id']) }}</span>
+                    de: <span style="color: red;">{{ $active_message['fullname'] }}</span>
+                </div>
+                <div class="w-33 txt-center" >
+                    <b>{{ $active_message['title'] }}</b>
+                </div>
+                <div class="w-33 left">
+                    @if ($active_message['type'] == 'custom_creation')
+                        <em>Création personalisée</em>
+                    @elseif ($active_message['type'] == 'existing_creation')
+                        <em>Création existante</em>
+                    @elseif ($active_message['type'] == 'informations')
+                        <em>Renseignement</em>
+                    @endif
+
+                    @if ($active_message['status'] == 1)
+                        <a href="disable_msg?id={{ $active_message['id'] }}"><img src="img/suppr_icon.png" alt="Suppimer le message"></a>
+                    @endif
+                </div>
+            </button>
+
+            <div class="panel">
+                {{ $active_message['phonenumber'] }}<br><br>
+                Description:
+                <p>{{ $active_message['description'] }}</p>
+                @if (isset($active_message['filepath']))
+                    <a href="{{ $active_message['filepath'] }}" target="_blank">Voir la Pièce jointe</a>
+                @endif
+            </div>
+
+        <br>
+    @endforeach
+
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+        
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+                } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+                } 
+            });
+        }
+    </script>
+
+
+@endsection

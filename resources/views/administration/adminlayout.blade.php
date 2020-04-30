@@ -24,23 +24,23 @@
             </div>
             <br>
             <ul class="nav justify-content-center">
-                <li class="nav-item">
-                  <a class="nav-link" href="/welcome">Acceuil</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/shop">Shop</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">À propos</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/contact">Contact</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/admin">Admin</a>
-                </li>
-              </ul>
-              <br>
+              <li class="nav-item">
+                <a class="nav-link" href="/welcome">Accueil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/shop">Shop</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/about">À propos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contact">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin">Admin</a>
+              </li>
+            </ul>
+            <br>
 
               @if(isset(Auth::user()->email))
                 @yield('content')

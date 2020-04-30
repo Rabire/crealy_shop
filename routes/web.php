@@ -42,3 +42,5 @@ Route::post('config/setdelay', 'ConfigController@setdelay');
 Route::post('adminlistefilter', 'ConfigController@filter');
 
 
+Route::get('messages', 'MessageController@index');
+Route::get('disable_msg', 'MessageController@DisableMessage');

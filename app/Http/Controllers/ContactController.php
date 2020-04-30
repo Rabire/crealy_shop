@@ -26,6 +26,7 @@ class ContactController extends Controller
         $message->title = $_POST['title'];
         $message->description = $_POST['description'];
         $message->type = "custom_creation";
+        $message->status = 1;
 
         
         if (isset($_FILES['uploaded_file']['name'])) {
@@ -86,6 +87,7 @@ class ContactController extends Controller
         $message->description = $_POST['description'];
         $message->type = "existing_creation";
         $message->article_id = $_POST['article'];
+        $message->status = 1;
 
         
         if (isset($_FILES['uploaded_file']['name'])) {
@@ -143,6 +145,7 @@ class ContactController extends Controller
         $message->phonenumber = $_POST['phonenumber'];
         $message->description = $_POST['description'];
         $message->type = "informations";
+        $message->status = 1;
     
         $message->save();
         return back()->with('success', 'Votre message à été envoyé !');

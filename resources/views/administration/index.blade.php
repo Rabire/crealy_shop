@@ -54,6 +54,7 @@
 
     <div class="col">
         <a href="add_article" class="btn btn-primary">Ajouter une création</a>
+        <a href="messages" class="btn btn-primary">Liste des messages</a>
     </div>
     <br>
 

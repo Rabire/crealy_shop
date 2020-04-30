@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\General;
 
 class UsersTablesSeeder extends Seeder
 {
@@ -17,6 +18,10 @@ class UsersTablesSeeder extends Seeder
             'email' => 'a@a',
             'password' => Hash::make('123'),
             'remember_token' => Str::random(10),
+        ]);
+        
+        General::create([
+            'delay' => '10'
         ]);
     }
 }
