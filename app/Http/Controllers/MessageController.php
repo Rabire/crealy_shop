@@ -10,16 +10,12 @@ class MessageController extends Controller
 {
     function GetActiveMessages() {
         $active_messages = Message::where('status', '1')->orderBy('created_at', 'desc')->get()->toArray();
-
-        /*
-        foreach ($active_messages as $active_message) {
-            $new_creationdate = date('d/m/Y', strtotime($active_message['created_at']));
-            echo $new_creationdate;
-            array_replace($active_message['created_at'],$new_creationdate);
-        }
-        dump($active_messages);
-        */
         return $active_messages;
+    }
+
+    function GetAllMessages() {
+        $all_messages = Message::orderBy('created_at', 'desc')->get()->toArray();
+        return $all_messages;
     }
 
     static function Created_at_dateFormat($id) {
@@ -28,11 +24,6 @@ class MessageController extends Controller
             $new_creationdate = date('d/m/Y', strtotime($message['created_at']));
         }
         return $new_creationdate;
-    }
-
-    function GetAllMessages() {
-        $active_messages = Message::all()->orderBy('created_at', 'desc')->get()->toArray();
-        return $all_messages;
     }
 
     static function getProductName($id) {
@@ -48,13 +39,21 @@ class MessageController extends Controller
         $message = Message::find($_GET['id']);
         $message->status = 0;
 
+        $message->save();
         return back()->with('success', 'Message supprimé avec succès');
     }
 
     function index() {
-        return view('administration/messages', [
-            'active_messages' => $this->GetActiveMessages(),
-        ]);
+
+        if (isset($_GET['filter']) && $_GET['filter'] == 'all') {
+            return view('administration/messages', [
+                'messages' => $this->GetAllMessages(),
+            ]);
+        } else {
+            return view('administration/messages', [
+                'messages' => $this->GetActiveMessages(),
+            ]);
+        }
     }
 
 }

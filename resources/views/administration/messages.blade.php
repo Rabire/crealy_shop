@@ -46,6 +46,7 @@
             text-align: right;
         }
 
+
     </style>
 
     @if (\Session::has('success'))
@@ -54,37 +55,47 @@
         </div>
     @endif
 
-    @foreach ($active_messages as $active_message)
+    <em>
+        @if (isset($_GET['filter']) && $_GET['filter'] == 'all')
+            <a href="messages">N'afficher que les messages actifs</a>
+        @else
+            <em><a href="messages?filter=all">Voir tout les messages</a>
+        @endif
+    </em>
+    <br> <br>
+
+    @foreach ($messages as $message)
         
             <button class="accordion flex-btwn">
                 <div class="w-33" >
-                    Le : <span style="color: blue;">{{ $MessageController::Created_at_dateFormat($active_message['id']) }}</span>
-                    de: <span style="color: red;">{{ $active_message['fullname'] }}</span>
+                    Le : <span style="color: blue;">{{ $MessageController::Created_at_dateFormat($message['id']) }}</span>
+                    de: <span style="color: red;">{{ $message['fullname'] }}</span>
                 </div>
                 <div class="w-33 txt-center" >
-                    <b>{{ $active_message['title'] }}</b>
+                    <b>{{ $message['title'] }}</b>
                 </div>
                 <div class="w-33 left">
-                    @if ($active_message['type'] == 'custom_creation')
+                    @if ($message['type'] == 'custom_creation')
                         <em>Création personalisée</em>
-                    @elseif ($active_message['type'] == 'existing_creation')
+                    @elseif ($message['type'] == 'existing_creation')
                         <em>Création existante</em>
-                    @elseif ($active_message['type'] == 'informations')
+                    @elseif ($message['type'] == 'informations')
                         <em>Renseignement</em>
                     @endif
 
-                    @if ($active_message['status'] == 1)
-                        <a href="disable_msg?id={{ $active_message['id'] }}"><img src="img/suppr_icon.png" alt="Suppimer le message"></a>
+                    @if ($message['status'] == 1)
+                        <a href="disable_msg?id={{ $message['id'] }}"><img src="img/suppr_icon.png" alt="Suppimer le message"></a>
                     @endif
                 </div>
             </button>
 
             <div class="panel">
-                {{ $active_message['phonenumber'] }}<br><br>
+                Numéro de téléphone:<br>
+                {{ $message['phonenumber'] }}<br><br>
                 Description:
-                <p>{{ $active_message['description'] }}</p>
-                @if (isset($active_message['filepath']))
-                    <a href="{{ $active_message['filepath'] }}" target="_blank">Voir la Pièce jointe</a>
+                <p>{{ $message['description'] }}</p>
+                @if (isset($message['filepath']))
+                    <a href="{{ $message['filepath'] }}" target="_blank">Voir la Pièce jointe</a><br><br>
                 @endif
             </div>
 
