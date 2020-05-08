@@ -10,13 +10,7 @@ Route::get('/', function () {
 
 
 Route::get('contact', 'ContactController@index');
-Route::get('contact-custom_creation', 'ContactController@index');
-Route::get('contact-existing_creation', 'ContactController@ShowExistingCreation');
-Route::get('contact-informations', 'ContactController@ShowInformations');
-
-Route::post('contact-custom_creation-submit', 'ContactController@customCreationSubmit');
-Route::post('contact-existing_creation-submit', 'ContactController@customExistingSubmit');
-Route::post('contact-informations-submit', 'ContactController@informationsSubmit');
+Route::post('contact-submit', 'ContactController@Submit');
 
 
 

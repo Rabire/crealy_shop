@@ -2,6 +2,13 @@
 
 @section('content')
 
+<style>
+  .borders {
+    border-bottom: 1px solid rgb(222, 226, 230);
+    border-left: 1px solid rgb(222, 226, 230);
+    border-right: 1px solid rgb(222, 226, 230);
+  }
+</style>
 
 @if (\Session::has('success'))
     <br>
@@ -12,134 +19,80 @@
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link @if($tab == 'custom_creation') active @endif" href="contact-custom_creation">Création sur mesure</a>
+        <a class="nav-link @if($tab == 'custom_creation') active @endif" href="contact?type=custom_creation">Création sur mesure</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link @if($tab == 'existing_creation') active @endif" href="contact-existing_creation">Création déjà existante</a>
+      <a class="nav-link @if($tab == 'existing_creation') active @endif" href="contact?type=existing_creation">Création déjà existante</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link @if($tab == 'informations') active @endif" href="contact-informations">Renseignements</a>
+      <a class="nav-link @if($tab == 'informations') active @endif" href="contact?type=informations">Renseignements</a>
     </li>
 </ul>
 
-@if($tab == 'custom_creation')
-<!-- custom_creation -->
-  <div class="container">
+  <div class="container borders">
     <br>
-    <form method="post" action="contact-custom_creation-submit" enctype="multipart/form-data">
+    <form method="post" action="contact-submit" enctype="multipart/form-data">
       {{ csrf_field() }}
 
-      <div class="form-group form-inline justify-content-center">
-        <label>Vous êtes :</label>
+      <input name="type" type="hidden" value="{{ $tab }}">
+
+      <div class="form-group">
+        <label>Vos informations</label>
+
         <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror" placeholder="Nom complet">
-        <label>Joignable au :</label>
+        @error('fullname') <span class="invalid-feedback">Veuillez renseigner votre nom.</span> @enderror
+        <br>
+
         <input type="text" name="phonenumber" class="form-control @error('phonenumber') is-invalid @enderror" placeholder="Numéro de téléphone">
+        @error('phonenumber') <span class="invalid-feedback">Comment pouvons-nous nous contacter ?</span> @enderror
       </div>
 
       <div class="form-group">
-        <label>Titre de la commande</label>
-        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="" placeholder="Nom du produit">
-        @error('title') <span class="invalid-feedback">Veuillez indiquer le titre de la commande</span> @enderror
+        <label>Votre demande</label>
+
+        @if($tab == 'custom_creation' || $tab == 'existing_creation')
+          <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Titre de la commande">
+          @error('title') <span class="invalid-feedback">Veuillez indiquer le titre de la commande.</span> @enderror
+          <br>
+        @endif
+
+        @if($tab == 'existing_creation')
+          <select name="article" class="form-control @error('article') is-invalid @enderror">
+            <option value="" selected>Choisir un article existant...</option>
+            @foreach ($produits as $produit)
+              <option value="{{ $produit['id'] }}">{{ $produit['name'] }}</option>
+            @endforeach
+          </select>
+          @error('article') <span class="invalid-feedback">Veuillez choisir un article existant.</span> @enderror
+          <br>
+        @endif
+
+      
+        <textarea class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Commentaire" rows="5"></textarea>
+        @error('description') <span class="invalid-feedback">Merci de détailler votre demande.</span> @enderror
       </div>
 
-      <div class="form-group">
-        <label>Description</label>
-        <textarea class="form-control @error('description') is-invalid @enderror" name="description" placeholder="déscription déraillée du produit" rows="3"></textarea>
-        @error('description') <span class="invalid-feedback"> Veuillez décrir le produit voullu </span> @enderror
-      </div>
-
-      <div class="input-group">
-        <input type="file" name="uploaded_file" />
-      </div>
-
-      @if (\Session::has('file_error'))
-        <div class="alert alert-danger" role="alert">
-          {{ Session::get('file_error') }}
+      @if($tab == 'custom_creation' || $tab == 'existing_creation')
+        <div class="input-group">
+          <input type="file" name="uploaded_file" />
+          <br><br>
         </div>
+    
+        @if (\Session::has('file_error'))
+          <div class="alert alert-danger" role="alert">
+            {{ Session::get('file_error') }}
+          </div>
+        @endif
       @endif
 
-      <br>
-      <button type="submit" class="btn btn-primary">Envoyer</button>
+      <button type="submit" name="submit" class="btn btn-primary w-100">Envoyer</button>
+      <br><br>
+
     </form>
   </div>
 
-@elseif($tab == 'existing_creation')
-<!-- existing_creation -->
-  <div class="container">
-    <br>
-    <form method="post" action="contact-existing_creation-submit">
-      {{ csrf_field() }}
 
-      <div class="form-group form-inline justify-content-center">
-        <label>Vous êtes :</label>
-        <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror" placeholder="Nom complet">
-        <label>Joignable au :</label>
-        <input type="text" name="phonenumber" class="form-control @error('phonenumber') is-invalid @enderror" placeholder="Numéro de téléphone">
-      </div>
 
-      <div class="form-group">
-        <label>Titre de la commande</label>
-        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Nom du produit">
-        @error('title') <span class="invalid-feedback"> Veuillez indiquer le titre de la commande </span> @enderror
-      </div>
-
-      <div class="form-group">
-        <label>Article existant</label>
-        <select name="article" class="form-control @error('article') is-invalid @enderror">
-          <option value="" selected>Choisir...</option>
-          @foreach ($produits as $produit)
-            <option value="{{ $produit['id'] }}">{{ $produit['name'] }}</option>
-          @endforeach
-        </select>
-        @error('article') <span class="invalid-feedback"> Veuillez choisir un article existant </span> @enderror
-      </div>
-
-      <div class="form-group">
-        <label>Description</label>
-        <textarea name="description" class="form-control @error('description') is-invalid @enderror" placeholder="déscription déraillée du produit" rows="3"></textarea>
-        @error('description') <span class="invalid-feedback"> Veuillez décrir le produit voullu </span> @enderror
-      </div>
-
-      <div class="input-group">
-        <input type="file" name="uploaded_file" />
-      </div>
-
-      @if (\Session::has('file_error'))
-        <div class="alert alert-danger" role="alert">
-          {{ Session::get('file_error') }}
-        </div>
-      @endif
-
-      <br>
-      <button type="submit" class="btn btn-primary">Envoyer</button>
-    </form>
-  </div>
-
-@elseif($tab == 'informations')
-<!-- informations -->
-  <div class="container">
-    <br>
-    <form method="post" action="contact-informations-submit">
-      {{ csrf_field() }}
-
-      <div class="form-group form-inline justify-content-center">
-        <label>Vous êtes :</label>
-        <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror" placeholder="Nom complet">
-        <label>Joignable au :</label>
-        <input type="text" name="phonenumber" class="form-control @error('phonenumber') is-invalid @enderror" placeholder="Numéro de téléphone">
-      </div>
-
-      <div class="form-group">
-        <label>Je vous écoute</label>
-        <textarea class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Demandez-moi ce que vous voullez !" rows="5"></textarea>
-        @error('description') <span class="invalid-feedback">Merci de détailler votre demande</span> @enderror
-      </div>
-
-      <button type="submit" class="btn btn-primary">Envoyer</button>
-    </form>
-  </div>
-
-@endif
 
 @endsection
 
