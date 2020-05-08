@@ -11,39 +11,87 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="style.css">
-        
+
+        <link rel="icon" href="img/Crealy_Logo_Simple.ico" />
 
     </head>
 
+    
+    <style>
+      .mainlogo {
+        height: 80px;
+      }
+
+      .navbar-brand {
+        padding-left: 5%;
+      }
+
+      .social-logo {
+        height: 30px;
+      }
+
+      .navicon {
+        height: 30px;
+        padding-right: 5px;
+        padding-left: 20px;
+      }
+
+      .allsocial {
+        display: flex;
+        justify-content: space-between;
+        padding-right: 5%;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .nav-item:hover {
+        text-decoration: underline;
+      }
+
+
+    </style>
+
+
     <body class="bg">
-        <div class="container">
-            <br>
+      
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-            <div class="text-center">
-                <img src="img/crealy_floquage.png"  height=200px alt="Logo">
+        <a class="navbar-brand" href="/"><img class="mainlogo" src="img\crealy_tipo.png" alt="Main logo"></a>
+      
+        <div class="navbar-nav">
+          
+            <div class="nav-item active">
+              <a class="nav-link" href="/"><img class="navicon" src="img\icons8-niche-pour-chien-32.png" alt="navicon shop">Acceuil</a>
             </div>
-            <br>
-            <ul class="nav justify-content-center">
-                <li class="nav-item">
-                  <a class="nav-link" href="/welcome">Acceuil</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/shop">Shop</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">À propos</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/contact">Contact</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/admin">Admin</a>
-                </li>
-              </ul>
-              <br>
-
-            @yield('content')
-
+            <div class="nav-item active">
+              <a class="nav-link" href="shop"><img class="navicon" src="img\icons8-shopify-80.png" alt="navicon shop">Shop</a>
+            </div>
+            <div class="nav-item active">
+              <a class="nav-link" href="contact"><img class="navicon" src="img\icons8-nouvelle-lettre-32.png" alt="navicon contact">Contact</a>
+            </div>
         </div>
+
+        <div class="allsocial">
+          <div class="social">
+            <a class="navbar-brand" href="https://www.instagram.com/crealy.handmade/"><img class="insta social-logo" src="img\icons8-instagram-26.png" alt="insta"></a>
+          </div>
+
+          <div class="social">
+            <a class="navbar-brand" href="/"><img class="fb social-logo" src="img\icons8-facebook-24.png" alt="fb"></a>
+          </div>
+        </div>
+          
+
+      </nav>
+
+      <br>
+
+      <div class="container">
+        @yield('content')
+      </div>
+
     </body>
 </html>
