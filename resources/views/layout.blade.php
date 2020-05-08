@@ -57,7 +57,7 @@
 
     <body class="bg">
       
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark primbg" >
 
         <a class="navbar-brand" href="/"><img class="mainlogo" src="img\crealy_tipo.png" alt="Main logo"></a>
       

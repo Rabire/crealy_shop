@@ -8,6 +8,10 @@
     border-left: 1px solid rgb(222, 226, 230);
     border-right: 1px solid rgb(222, 226, 230);
   }
+
+  .nav-link {
+    color: #5a7a7c;
+  }
 </style>
 
 @if (\Session::has('success'))
@@ -85,7 +89,7 @@
         @endif
       @endif
 
-      <button type="submit" name="submit" class="btn btn-primary w-100">Envoyer</button>
+      <button type="submit" name="submit" class="btn btn-outline-success w-100">Envoyer</button>
       <br><br>
 
     </form>
